@@ -8,6 +8,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class LockerTest {
     @Test
     void should_get_ticket_when_deposit_given_locker_is_not_full() {
+        //Given
+
         Locker locker = new Locker(5L);
         Bag bag = new Bag();
         Ticket ticket = locker.deposit(bag);
@@ -16,9 +18,15 @@ public class LockerTest {
 
     @Test
     void should_get_ticket_when_deposit_given_locker_is_full() {
+        //Given
+
         Locker locker = new Locker(1L);
+        //when
+
         locker.deposit(new Bag());
         Bag bag = new Bag();
+        //then
+
         assertThatThrownBy(() -> locker.deposit(bag)).isInstanceOf(DepositBagFailedException.class);
     }
 
