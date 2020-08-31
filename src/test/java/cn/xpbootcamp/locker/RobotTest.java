@@ -41,4 +41,22 @@ public class RobotTest {
         //When Then
         assertThatThrownBy(() -> primaryLockerRobot.deposit(new Bag())).isInstanceOf(DepositBagFailedException.class);
     }
+
+    @Test
+    void should_in_first_locker_and_return_ticket_given_2_locker_and_all_locker_is_not_full_when_deposit_bag() {
+
+        //Given
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        List<Locker> lockerList = new ArrayList<>();
+        lockerList.add(new Locker(3L));
+        lockerList.add(new Locker(4L));
+
+        primaryLockerRobot.setLocker(lockerList);
+
+        //When
+        Ticket ticket = primaryLockerRobot.deposit(new Bag());
+
+        //Then
+        assertThat(ticket).isNotNull();
+    }
 }
