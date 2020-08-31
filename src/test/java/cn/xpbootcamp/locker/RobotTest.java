@@ -59,4 +59,26 @@ public class RobotTest {
         //Then
         assertThat(ticket).isNotNull();
     }
+
+    @Test
+    void should_in_second_locker_and_return_ticket_given_2_locker_and_first_locker_is_full_when_deposit_bag() {
+
+        //Given
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        List<Locker> lockerList = new ArrayList<>();
+        Locker firstLocker = new Locker(1L);
+        Locker secondLocker = new Locker(4L);
+        lockerList.add(firstLocker);
+        lockerList.add(secondLocker);
+        primaryLockerRobot.setLocker(lockerList);
+
+        primaryLockerRobot.deposit(new Bag());
+
+        //When
+        Bag bag = new Bag();
+        Ticket ticket = primaryLockerRobot.deposit(bag);
+
+        //Then
+        assertThat(bag).isEqualTo(secondLocker.take(ticket));
+    }
 }

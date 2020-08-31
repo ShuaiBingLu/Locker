@@ -18,6 +18,10 @@ public class Locker {
         this.bagTicketRelation = new HashMap<>();
     }
 
+    public boolean isFull() {
+        return capacity <= bagTicketRelation.size();
+    }
+
     public Ticket deposit(Bag bag) {
         if (bagTicketRelation.size() >= capacity) {
             throw new DepositBagFailedException();
