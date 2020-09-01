@@ -1,6 +1,7 @@
 package cn.xpbootcamp.locker;
 
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,11 +12,17 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class RobotTest {
 
+    PrimaryLockerRobot primaryLockerRobot;
+
+    @BeforeEach
+    void setup() {
+        primaryLockerRobot = new PrimaryLockerRobot();
+    }
+
     @Test
     void should_get_ticket_given_1_locker_and_locker_not_full_when_deposit_bag() {
 
         //Given
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         List<Locker> lockerList = new ArrayList<>();
         lockerList.add(new Locker(5L));
         primaryLockerRobot.setLocker(lockerList);
@@ -31,7 +38,6 @@ public class RobotTest {
     void should_return_locker_is_full_given_1_locker_and_locker_is_full_when_deposit_bag() {
 
         //Given
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         List<Locker> lockerList = new ArrayList<>();
         lockerList.add(new Locker(1L));
         primaryLockerRobot.setLocker(lockerList);
@@ -46,7 +52,6 @@ public class RobotTest {
     void should_in_first_locker_and_return_ticket_given_2_locker_and_all_locker_is_not_full_when_deposit_bag() {
 
         //Given
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         List<Locker> lockerList = new ArrayList<>();
         lockerList.add(new Locker(3L));
         lockerList.add(new Locker(4L));
@@ -64,7 +69,6 @@ public class RobotTest {
     void should_in_second_locker_and_return_ticket_given_2_locker_and_first_locker_is_full_when_deposit_bag() {
 
         //Given
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         List<Locker> lockerList = new ArrayList<>();
         Locker firstLocker = new Locker(1L);
         Locker secondLocker = new Locker(4L);
@@ -86,7 +90,6 @@ public class RobotTest {
     void should_return_locker_is_full_given_two_locker_and_all_is_full_when_deposit_bag() {
 
         //Given
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         List<Locker> lockerList = new ArrayList<>();
         Locker firstLocker = new Locker(1L);
         Locker secondLocker = new Locker(1L);
@@ -106,7 +109,6 @@ public class RobotTest {
     void should_return_ticket_given_two_locker_and_one_ticket_when_take_bag() {
 
         //Given
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         List<Locker> lockerList = new ArrayList<>();
         Locker firstLocker = new Locker(1L);
         Locker secondLocker = new Locker(1L);
@@ -124,15 +126,13 @@ public class RobotTest {
     void should_return_ticket_given_two_locker_and_wrong_ticket_when_take_bag() {
 
         //Given
-        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         List<Locker> lockerList = new ArrayList<>();
         Locker firstLocker = new Locker(1L);
         Locker secondLocker = new Locker(1L);
         lockerList.add(firstLocker);
         lockerList.add(secondLocker);
         primaryLockerRobot.setLocker(lockerList);
-        Bag bag = new Bag();
-        Ticket ticket = primaryLockerRobot.deposit(bag);
+        primaryLockerRobot.deposit(new Bag());
 
         //Then
         assertThatThrownBy(() -> primaryLockerRobot.take(new Ticket())).isInstanceOf(InvalidTicketException.class);

@@ -1,5 +1,10 @@
 package cn.xpbootcamp.locker;
 
 public class Ticket {
-    private String code;
+
+    private int code;
+
+    public Ticket create() {
+        return new Ticket();
+    }
 }
