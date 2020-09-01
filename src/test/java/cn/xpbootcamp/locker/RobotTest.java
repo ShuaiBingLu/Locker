@@ -119,4 +119,22 @@ public class RobotTest {
         //Then
         assertThat(primaryLockerRobot.take(ticket)).isEqualTo(bag);
     }
+
+    @Test
+    void should_return_ticket_given_two_locker_and_wrong_ticket_when_take_bag() {
+
+        //Given
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        List<Locker> lockerList = new ArrayList<>();
+        Locker firstLocker = new Locker(1L);
+        Locker secondLocker = new Locker(1L);
+        lockerList.add(firstLocker);
+        lockerList.add(secondLocker);
+        primaryLockerRobot.setLocker(lockerList);
+        Bag bag = new Bag();
+        Ticket ticket = primaryLockerRobot.deposit(bag);
+
+        //Then
+        assertThatThrownBy(() -> primaryLockerRobot.take(new Ticket())).isInstanceOf(InvalidTicketException.class);
+    }
 }

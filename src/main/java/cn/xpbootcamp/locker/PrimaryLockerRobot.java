@@ -32,6 +32,9 @@ public class PrimaryLockerRobot {
                 break;
             }
         }
+        if (Objects.isNull(bag)) {
+            throw new InvalidTicketException();
+        }
         return bag;
     }
 }
