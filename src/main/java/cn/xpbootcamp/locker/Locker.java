@@ -19,7 +19,11 @@ public class Locker {
     }
 
     public boolean isFull() {
-        return capacity <= bagTicketRelation.size();
+        return bagTicketRelation.size() >= capacity;
+    }
+
+    public boolean existedTicket(Ticket ticket) {
+        return bagTicketRelation.containsKey(ticket);
     }
 
     public Ticket deposit(Bag bag) {
