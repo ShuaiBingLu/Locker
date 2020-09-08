@@ -1,4 +1,4 @@
-package cn.xpbootcamp.locker;
+package cn.xpbootcamp.exception;
 
 public class DepositBagFailedException extends RuntimeException {
 

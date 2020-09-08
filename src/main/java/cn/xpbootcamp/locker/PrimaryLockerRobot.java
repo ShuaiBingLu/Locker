@@ -1,14 +1,19 @@
 package cn.xpbootcamp.locker;
 
+import cn.xpbootcamp.domain.Bag;
+import cn.xpbootcamp.domain.Ticket;
+import cn.xpbootcamp.exception.DepositBagFailedException;
+
 import java.util.List;
 
-public class PrimaryLockerRobot {
+public class PrimaryLockerRobot extends LockerRobotBase {
     private List<Locker> lockers;
 
     public void setLocker(List<Locker> lockers) {
         this.lockers = lockers;
     }
 
+    @Override
     public Ticket deposit(Bag bag) {
         for (Locker locker : lockers) {
             if (!locker.isFull()) {
@@ -16,14 +21,5 @@ public class PrimaryLockerRobot {
             }
         }
         throw new DepositBagFailedException();
-    }
-
-    public Bag take(Ticket ticket) {
-        for (Locker locker : lockers) {
-            if (locker.existedTicket(ticket)) {
-                return locker.take(ticket);
-            }
-        }
-        throw new InvalidTicketException();
     }
 }

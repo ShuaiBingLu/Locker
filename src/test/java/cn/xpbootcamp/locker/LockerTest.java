@@ -1,5 +1,10 @@
 package cn.xpbootcamp.locker;
 
+import cn.xpbootcamp.domain.Bag;
+import cn.xpbootcamp.domain.Ticket;
+import cn.xpbootcamp.exception.DepositBagFailedException;
+import cn.xpbootcamp.exception.ExpiredTicketExcepiton;
+import cn.xpbootcamp.exception.InvalidTicketException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

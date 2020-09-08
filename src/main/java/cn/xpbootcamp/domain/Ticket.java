@@ -1,4 +1,4 @@
-package cn.xpbootcamp.locker;
+package cn.xpbootcamp.domain;
 
 public class Ticket {
 

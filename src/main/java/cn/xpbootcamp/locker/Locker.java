@@ -1,5 +1,10 @@
 package cn.xpbootcamp.locker;
 
+import cn.xpbootcamp.domain.Bag;
+import cn.xpbootcamp.domain.Ticket;
+import cn.xpbootcamp.exception.DepositBagFailedException;
+import cn.xpbootcamp.exception.InvalidTicketException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +16,10 @@ public class Locker {
     public Locker(Long capacity) {
         this.capacity = capacity;
         this.bagStore = new HashMap<>();
+    }
+
+    public Long getAvailableCapability() {
+        return this.capacity - bagStore.size();
     }
 
     public boolean isFull() {
