@@ -26,4 +26,18 @@ public class LockerRobotManagerTest {
         lockerRobotManager.setLocker(lockers);
         assertThatThrownBy(() -> lockerRobotManager.deposit(new Bag())).isInstanceOf(DepositBagFailedException.class);
     }
+
+    @Test
+    void should_get_ticket_given_1_primary_robot_can_deposit_bag_and_1_smart_robot_when_deposit_bag() {
+        LockerRobotManager lockerRobotManager = new LockerRobotManager();
+        List<Locker> lockers = List.of(new Locker(2L), new Locker(2L));
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        primaryLockerRobot.setLocker(lockers);
+
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot();
+        smartLockerRobot.setLockers(lockers);
+        List<LockerRobotBase> lockerRobots = List.of(primaryLockerRobot, smartLockerRobot);
+        lockerRobotManager.setLockerRobot(lockerRobots);
+        assertThat(lockerRobotManager.deposit(new Bag())).isNotNull();
+    }
 }
