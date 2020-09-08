@@ -19,6 +19,10 @@ public class LockerRobotManager {
         this.lockers = lockers;
     }
 
+    public void setLockerRobot(List<LockerRobotBase> lockerRobots) {
+        this.lockerRobots = lockerRobots;
+    }
+
     public Ticket deposit(Bag bag) {
         Ticket ticket = lockerRobots.stream()
                 .filter(lockerRobotBase -> lockerRobotBase.lockers.stream().anyMatch(locker -> !locker.isFull()))
@@ -30,10 +34,6 @@ public class LockerRobotManager {
                     .map(locker -> locker.deposit(bag)).orElseThrow(DepositBagFailedException::new);
         }
         return ticket;
-    }
-
-    public void setLockerRobot(List<LockerRobotBase> lockerRobots) {
-        this.lockerRobots = lockerRobots;
     }
 
     public Bag take(Ticket ticket) {
