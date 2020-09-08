@@ -3,10 +3,12 @@ package cn.xpbootcamp.locker;
 import cn.xpbootcamp.domain.Bag;
 import cn.xpbootcamp.domain.Ticket;
 import cn.xpbootcamp.exception.DepositBagFailedException;
+import cn.xpbootcamp.exception.InvalidTicketException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class LockerRobotManager {
     private List<Locker> lockers = new ArrayList<>();
@@ -32,5 +34,14 @@ public class LockerRobotManager {
 
     public void setLockerRobot(List<LockerRobotBase> lockerRobots) {
         this.lockerRobots = lockerRobots;
+    }
+
+    public Bag take(Ticket ticket) {
+        return Stream.concat(lockerRobots.stream()
+                .flatMap(lockerRobotBase -> lockerRobotBase.getLockers().stream()), this.lockers.stream())
+                .filter(locker -> locker.existedTicket(ticket))
+                .map(locker -> locker.take(ticket))
+                .findFirst()
+                .orElseThrow(InvalidTicketException::new);
     }
 }

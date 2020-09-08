@@ -14,6 +14,10 @@ public abstract class LockerRobotBase {
         this.lockers = lockers;
     }
 
+    public List<Locker> getLockers() {
+        return lockers;
+    }
+
     public abstract Ticket deposit(Bag bag);
 
     public Bag take(Ticket ticket) {
