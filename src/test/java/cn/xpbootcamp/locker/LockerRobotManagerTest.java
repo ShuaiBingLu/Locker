@@ -30,7 +30,7 @@ public class LockerRobotManagerTest {
     }
 
     @Test
-    void should_get_ticket_given_1_primary_robot_can_deposit_bag_and_1_smart_robot_when_deposit_bag() {
+    void should_get_ticket_and_in_primary_robot_given_1_primary_robot_can_deposit_bag_and_1_smart_robot_when_deposit_bag() {
         LockerRobotManager lockerRobotManager = new LockerRobotManager();
         List<Locker> lockers = List.of(new Locker(2L), new Locker(2L));
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
@@ -45,5 +45,46 @@ public class LockerRobotManagerTest {
 
         assertThat(ticket).isNotNull();
         assertThat(primaryLockerRobot.take(ticket)).isEqualTo(bag);
+    }
+
+    @Test
+    void should_get_ticket_and_in_smart_robot_given_1_primary_robot_can_deposit_bag_and_1_smart_robot_when_deposit_bag() {
+
+        LockerRobotManager lockerRobotManager = new LockerRobotManager();
+        List<Locker> lockers1 = List.of(new Locker(0L), new Locker(0L));
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        primaryLockerRobot.setLockers(lockers1);
+        List<Locker> lockers2 = List.of(new Locker(2L), new Locker(2L));
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot();
+        smartLockerRobot.setLockers(lockers2);
+        List<LockerRobotBase> lockerRobots = List.of(primaryLockerRobot, smartLockerRobot);
+        lockerRobotManager.setLockerRobot(lockerRobots);
+        Bag bag = new Bag();
+
+        Ticket ticket = lockerRobotManager.deposit(bag);
+
+        assertThat(ticket).isNotNull();
+        assertThat(smartLockerRobot.take(ticket)).isEqualTo(bag);
+    }
+
+    @Test
+    void should_get_ticket_and_in_locker_given_given_1_primary_robot_can_not_deposit_bag_and_1_smart_robot_can_not_deposit_bag_when_deposit_bag() {
+        LockerRobotManager lockerRobotManager = new LockerRobotManager();
+        List<Locker> lockers1 = List.of(new Locker(0L), new Locker(0L));
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        primaryLockerRobot.setLockers(lockers1);
+        List<Locker> lockers2 = List.of(new Locker(0L), new Locker(0L));
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot();
+        smartLockerRobot.setLockers(lockers2);
+        List<LockerRobotBase> lockerRobots = List.of(primaryLockerRobot, smartLockerRobot);
+        lockerRobotManager.setLockerRobot(lockerRobots);
+        Locker locker = new Locker(1L);
+        lockerRobotManager.setLocker(List.of(locker, new Locker(1L)));
+        Bag bag = new Bag();
+
+        Ticket ticket = lockerRobotManager.deposit(bag);
+
+        assertThat(ticket).isNotNull();
+        assertThat(locker.take(ticket)).isEqualTo(bag);
     }
 }
