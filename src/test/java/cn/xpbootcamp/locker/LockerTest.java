@@ -57,7 +57,7 @@ public class LockerTest {
         Bag bag = new Bag();
         Ticket ticket = locker.deposit(bag);
         locker.take(ticket);
-        assertThatThrownBy(() -> locker.take(ticket)).isInstanceOf(ExpiredTicketExcepiton.class);
+        assertThatThrownBy(() -> locker.take(ticket)).isInstanceOf(InvalidTicketException.class);
 
     }
 }

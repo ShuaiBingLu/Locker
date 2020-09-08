@@ -21,7 +21,7 @@ public abstract class LockerRobotBase {
     public abstract Ticket deposit(Bag bag);
 
     public Bag take(Ticket ticket) {
-        return lockers.stream().filter(locker -> !locker.isFull())
+        return lockers.stream().filter(locker -> locker.existedTicket(ticket))
                 .findFirst()
                 .map(locker -> locker.take(ticket))
                 .orElseThrow(InvalidTicketException::new);
