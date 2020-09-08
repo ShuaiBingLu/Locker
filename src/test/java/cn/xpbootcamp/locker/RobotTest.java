@@ -29,7 +29,7 @@ public class RobotTest {
         //Given
         List<Locker> lockerList = new ArrayList<>();
         lockerList.add(new Locker(5L));
-        primaryLockerRobot.setLocker(lockerList);
+        primaryLockerRobot.setLockers(lockerList);
 
         //When
         Ticket ticket = primaryLockerRobot.deposit(new Bag());
@@ -44,7 +44,7 @@ public class RobotTest {
         //Given
         List<Locker> lockerList = new ArrayList<>();
         lockerList.add(new Locker(1L));
-        primaryLockerRobot.setLocker(lockerList);
+        primaryLockerRobot.setLockers(lockerList);
 
         primaryLockerRobot.deposit(new Bag());
 
@@ -60,7 +60,7 @@ public class RobotTest {
         lockerList.add(new Locker(3L));
         lockerList.add(new Locker(4L));
 
-        primaryLockerRobot.setLocker(lockerList);
+        primaryLockerRobot.setLockers(lockerList);
 
         //When
         Ticket ticket = primaryLockerRobot.deposit(new Bag());
@@ -78,7 +78,7 @@ public class RobotTest {
         Locker secondLocker = new Locker(4L);
         lockerList.add(firstLocker);
         lockerList.add(secondLocker);
-        primaryLockerRobot.setLocker(lockerList);
+        primaryLockerRobot.setLockers(lockerList);
 
         primaryLockerRobot.deposit(new Bag());
 
@@ -99,7 +99,7 @@ public class RobotTest {
         Locker secondLocker = new Locker(1L);
         lockerList.add(firstLocker);
         lockerList.add(secondLocker);
-        primaryLockerRobot.setLocker(lockerList);
+        primaryLockerRobot.setLockers(lockerList);
 
         primaryLockerRobot.deposit(new Bag());
         primaryLockerRobot.deposit(new Bag());
@@ -118,7 +118,7 @@ public class RobotTest {
         Locker secondLocker = new Locker(1L);
         lockerList.add(firstLocker);
         lockerList.add(secondLocker);
-        primaryLockerRobot.setLocker(lockerList);
+        primaryLockerRobot.setLockers(lockerList);
         Bag bag = new Bag();
         Ticket ticket = primaryLockerRobot.deposit(bag);
 
@@ -135,7 +135,7 @@ public class RobotTest {
         Locker secondLocker = new Locker(1L);
         lockerList.add(firstLocker);
         lockerList.add(secondLocker);
-        primaryLockerRobot.setLocker(lockerList);
+        primaryLockerRobot.setLockers(lockerList);
         primaryLockerRobot.deposit(new Bag());
 
         //Then
