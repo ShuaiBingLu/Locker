@@ -1,6 +1,7 @@
 package cn.xpbootcamp.locker;
 
 import cn.xpbootcamp.domain.Bag;
+import cn.xpbootcamp.domain.Ticket;
 import cn.xpbootcamp.exception.DepositBagFailedException;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +24,7 @@ public class LockerRobotManagerTest {
     void should_return_deposit_failed_given_two_full_locker_and_0_robot_when_deposit_bag() {
         LockerRobotManager lockerRobotManager = new LockerRobotManager();
         List<Locker> lockers = List.of(new Locker(0L), new Locker(0L));
+
         lockerRobotManager.setLocker(lockers);
         assertThatThrownBy(() -> lockerRobotManager.deposit(new Bag())).isInstanceOf(DepositBagFailedException.class);
     }
@@ -32,12 +34,16 @@ public class LockerRobotManagerTest {
         LockerRobotManager lockerRobotManager = new LockerRobotManager();
         List<Locker> lockers = List.of(new Locker(2L), new Locker(2L));
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
-        primaryLockerRobot.setLocker(lockers);
-
+        primaryLockerRobot.setLockers(lockers);
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot();
         smartLockerRobot.setLockers(lockers);
         List<LockerRobotBase> lockerRobots = List.of(primaryLockerRobot, smartLockerRobot);
         lockerRobotManager.setLockerRobot(lockerRobots);
-        assertThat(lockerRobotManager.deposit(new Bag())).isNotNull();
+        Bag bag = new Bag();
+
+        Ticket ticket = lockerRobotManager.deposit(bag);
+
+        assertThat(ticket).isNotNull();
+        assertThat(primaryLockerRobot.take(ticket)).isEqualTo(bag);
     }
 }
